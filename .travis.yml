@@ -1,0 +1,19 @@
+language: python
+
+python:
+  - "3.5"
+
+# command to install dependencies
+install:
+  - pip install -r requirements/common.txt
+  - pip install coveralls
+  - pip install codecov
+
+# command to run tests
+script:
+- python -m unittest discover
+- coverage run --source pyspark_ingestion setup.py test
+
+after_success:
+ - coveralls
+ - codecov
