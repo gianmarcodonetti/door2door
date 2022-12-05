@@ -4,7 +4,7 @@ import logging
 import os
 
 import pandas as pd
-from pyspark_ingestion import constants as C
+from door2door import constants as C
 
 TABLE_SCHEMA = 'TABLE_SCHEMA'
 TABLE_NAME = 'TABLE_NAME'

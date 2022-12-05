@@ -1,7 +1,7 @@
 # door2door
 
-[![Build Status](https://app.travis-ci.com/gianmarcodonetti/door2door.svg?branch=main)](https://app.travis-ci.com/github/gianmarcodonetti/door2door/builds)
-[![codecov](https://codecov.io/gh/gianmarcodonetti/door2door/branch/main/graph/badge.svg?token=PF72U1MVOP)](https://codecov.io/gh/gianmarcodonetti/door2door)
+[![Build Status](https://app.travis-ci.com/gianmarcodonetti/door2door.svg?branch=master)](https://app.travis-ci.com/github/gianmarcodonetti/door2door/builds)
+[![codecov](https://codecov.io/gh/gianmarcodonetti/door2door/branch/main/graph/badge.svg?token=9RiRFqdqyd)](https://codecov.io/gh/gianmarcodonetti/door2door)
 
 
 ## Introduction

@@ -3,9 +3,9 @@ import logging
 import os
 from getpass import getpass
 
-from pyspark_ingestion import constants as C, spark as sparkaras
-from pyspark_ingestion.ingestion.ingestion import ingestion_step
-from pyspark_ingestion.utils.security import decrypt_json
+from door2door import constants as C, spark as sparkaras
+from door2door.ingestion.ingestion import ingestion_step
+from door2door.utils.security import decrypt_json
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
 

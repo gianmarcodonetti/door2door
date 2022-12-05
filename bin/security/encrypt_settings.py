@@ -1,7 +1,7 @@
 import argparse
 import getpass
 
-from pyspark_ingestion.utils import security
+from door2door.utils import security
 
 
 def main(filename, password):

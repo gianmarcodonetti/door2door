@@ -10,9 +10,9 @@ from getpass import getpass
 
 from google.cloud import storage
 
-from pyspark_ingestion import constants as C, spark as sparkaras
-from pyspark_ingestion.ingestion.ingestion import ingestion_step, copy_local_directory_to_gcs
-from pyspark_ingestion.utils.security import decrypt_json
+from door2door import constants as C, spark as sparkaras
+from door2door.ingestion.ingestion import ingestion_step, copy_local_directory_to_gcs
+from door2door.utils.security import decrypt_json
 
 DEFAULT_BASE_PATH = os.path.join(os.sep, 'tmp', 'data', 'l0')
 
