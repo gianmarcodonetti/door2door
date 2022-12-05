@@ -1,19 +1,19 @@
 language: python
 
 python:
-  - "3.5"
+  - "3.7.6"
 
 # command to install dependencies
 install:
   - pip install -r requirements/common.txt
   - pip install coveralls
-  - pip install codecov
 
-# command to run tests
+# command to run tests 6ec24819-8058-43b3-8e46-a9eb3f0310e1
 script:
-- python -m unittest discover
-- coverage run --source pyspark_ingestion setup.py test
+  - python -m unittest discover
+  - coverage run --source door2door setup.py test
 
 after_success:
- - coveralls
- - codecov
+  - coveralls
+  - bash <(curl -s https://codecov.io/bash)
+

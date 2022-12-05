@@ -1,4 +1,6 @@
 pyathena
 boto3
 google-cloud-storage
-pyspark==2.3.3
+datetime
+pandas==1.0.2
+pyspark==3.1.3
