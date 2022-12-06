@@ -3,6 +3,13 @@
 [![Build Status](https://app.travis-ci.com/gianmarcodonetti/door2door.svg?branch=master)](https://app.travis-ci.com/github/gianmarcodonetti/door2door/builds)
 [![codecov](https://codecov.io/gh/gianmarcodonetti/door2door/branch/master/graph/badge.svg?token=9RiRFqdqyd)](https://codecov.io/gh/gianmarcodonetti/door2door)
 
+## Code Coverage Sunburst
+
+The inner-most circle is the entire project, moving away from the center are folders then, finally, a single file. The
+size and color of each slice is representing the number of statements and the coverage, respectively.
+
+[![Code Coverage Sunburst](https://codecov.io/gh/gianmarcodonetti/door2door/branch/master/graphs/sunburst.svg?token=9RiRFqdqyd)](https://codecov.io/gh/gianmarcodonetti/door2door/branch/master/graphs/sunburst.svg?token=9RiRFqdqyd)
+
 ## Introduction
 
 **door2door** collects the live position of all vehicles in its fleet in real-time via a GPS sensor in each

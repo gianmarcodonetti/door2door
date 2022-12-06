@@ -2,14 +2,10 @@ import boto3
 import pandas as pd
 import pyathena
 
-# TODO make a temporary saving of the dropped table in case CTAS fails
-TMP_DB = 'tmp'
-
 
 class AthenaContext:
 
-    def __init__(self, aki, sak, s3_staging_dir='s3://data-architect-athena-staging-area/stage/',
-                 region_name='eu-west-1'):
+    def __init__(self, aki, sak, s3_staging_dir='s3://de-door2door-athena-staging/stage/', region_name='eu-west-1'):
         self.aki = aki
         self.sak = sak
         self.s3_staging_dir = s3_staging_dir

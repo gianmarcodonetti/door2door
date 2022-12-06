@@ -40,6 +40,7 @@ def process(df):
                   # .withColumn('equal', F.col('at') == F.col('location_at'))
                   .withColumnRenamed("at", "vehicle_at")
                   .drop(F.col('data'))
+                  .drop(F.col('on'))
                   )
 
     df_op = (df
@@ -48,11 +49,14 @@ def process(df):
              .withColumn(c.START, F.col('data.start'))
              .withColumn(c.FINISH, F.col('data.finish'))
              .drop(F.col('data'))
+             .drop(F.col('on'))
              )
 
     # Maybe this could be done in the sql environment
     df_join = (df_vehicle
-               .join(F.broadcast(df_op), on=c.ORGANIZATION_ID, how='left')  # test the broadcast, if useful or not
+               .withColumnRenamed("event", "vehicle_event")
+               .join(F.broadcast(df_op.withColumnRenamed("event", "op_event")), on=c.ORGANIZATION_ID,
+                     how='left')  # test the broadcast, if useful or not
                .filter(F.col(c.START) <= F.col('vehicle_at'))
                .filter(F.col('vehicle_at') <= F.col(c.FINISH))
                )

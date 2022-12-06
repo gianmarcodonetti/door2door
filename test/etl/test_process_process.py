@@ -2,8 +2,10 @@ import logging
 import unittest
 from datetime import date
 
+from pyspark.sql import functions as F
+
 from door2door.etl.process import process, read_data
-from door2door.spark import get_spark_session
+from door2door.spark import get_spark_session, write_partitioned
 
 
 def quiet_py4j():
@@ -36,10 +38,18 @@ class PySparkKPITest(unittest.TestCase):
         """
         df_vehicle, df_op, df_join = process(self.df_read)
         self.assertEqual(set(df_vehicle.columns), {'event', 'lat', 'lng', 'location_at',
-                                                   'on', 'organization_id', 'vehicle_at', 'vehicle_id'})
-        self.assertEqual(set(df_op.columns), {'at', 'event', 'finish', 'on', 'op_id', 'organization_id', 'start'})
-        self.assertEqual(set(df_join.columns), {'at', 'event', 'finish', 'lat', 'lng', 'location_at', 'on',
-                                                'op_id', 'organization_id', 'start', 'vehicle_at', 'vehicle_id'})
+                                                   'organization_id', 'vehicle_at', 'vehicle_id'})
+        self.assertEqual(set(df_op.columns), {'at', 'event', 'finish', 'op_id', 'organization_id', 'start'})
+        self.assertEqual(set(df_join.columns), {'at', 'vehicle_event', 'finish', 'lat', 'lng', 'location_at', 'op_id',
+                                                'op_event', 'organization_id', 'start', 'vehicle_at', 'vehicle_id'})
+
+    def test_write_csv(self):
+        write_partitioned(self.df_read.select(F.col('at'), F.col('event')), './test/out/test_data_output1',
+                          file_format='csv')
+
+    def test_write_json_partitioned(self):
+        write_partitioned(self.df_read.select(F.col('at'), F.col('event'), F.col('on')), './test/out/test_data_output2',
+                          file_format='json', partition_columns=['on'], compression=None)
 
 
 if __name__ == '__main__':
