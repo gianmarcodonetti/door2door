@@ -1,7 +1,7 @@
 import logging
 import unittest
 
-from door2door.etl.process import process
+from door2door.etl.process import process, read_data
 from door2door.spark import get_spark_session
 
 
@@ -18,6 +18,12 @@ class PySparkKPITest(unittest.TestCase):
 
     def __del__(self):
         self.spark.stop()
+
+    def test_number_of_lines_read(self):
+        """There should be 35351 lines
+        """
+        df_read = read_data(self.spark, day=date(2019, 6, 1))
+        self.assertEqual(df_read.count(), 35351)
 
     def test_number_of_lines_processed(self):
         """There should be 2, 1 and 2 lines
