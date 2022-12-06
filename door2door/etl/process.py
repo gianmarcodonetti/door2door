@@ -4,14 +4,33 @@ from door2door import constants as c
 from door2door.spark import write_partitioned
 
 
-def process_step(spark_session, day, bucket='de-tech-assessment-2022', prefix_in='data', prefix_out='processed_data'):
-    file_to_read = f"s3a://{bucket}/{prefix_in}/{day}-*.json"
+def read_data(spark_session, day, bucket='de-tech-assessment-2022', prefix_in='data'):
+    """Read all the data and persist after read
 
-    # 1. Read all the data and persist after read
+    Args:
+        spark_session:
+        day:
+        bucket:
+        prefix_in:
+
+    Returns:
+
+    """
+    file_to_read = f"s3a://{bucket}/{prefix_in}/{day}-*.json"
     df = spark_session.read.json(file_to_read)
     df.persist()
+    return df
 
-    # 2. Create different dataframes for vehicle events, operation periods and the join between the two
+
+def process(df):
+    """Create different dataframes for vehicle events, operation periods and the join between the two
+
+    Args:
+        df:
+
+    Returns:
+
+    """
     df_vehicle = (df
                   .filter(F.col('on') == 'vehicle')
                   .withColumn(c.VEHICLE_ID, F.col('data.id'))
@@ -37,8 +56,22 @@ def process_step(spark_session, day, bucket='de-tech-assessment-2022', prefix_in
                .filter(F.col(c.START) <= F.col('vehicle_at'))
                .filter(F.col('vehicle_at') <= F.col(c.FINISH))
                )
+    return df_vehicle, df_op, df_join
 
-    # 3. Save the results
+
+def write(df_vehicle, df_op, df_join, bucket='de-tech-assessment-2022', prefix_out='processed_data'):
+    """Save the results
+
+    Args:
+        df_vehicle:
+        df_op:
+        df_join:
+        bucket:
+        prefix_out:
+
+    Returns:
+
+    """
     write_partitioned(df_vehicle, path_to_write=f"s3a://{bucket}/{prefix_out}/vehicle", partition_columns=None,
                       mode='errorifexists', compression=None, file_format='parquet')
 
@@ -47,5 +80,14 @@ def process_step(spark_session, day, bucket='de-tech-assessment-2022', prefix_in
 
     write_partitioned(df_join, path_to_write=f"s3a://{bucket}/{prefix_out}/joined", partition_columns=None,
                       mode='errorifexists', compression=None, file_format='parquet')
+    pass
 
+
+def process_step(spark_session, day, bucket='de-tech-assessment-2022', prefix_in='data', prefix_out='processed_data'):
+    # 1. Read all the data and persist after read
+    df = read_data(spark_session, day, bucket=bucket, prefix_in=prefix_in)
+    # 2. Create different dataframes for vehicle events, operation periods and the join between the two
+    df_vehicle, df_op, df_join = process(df)
+    # 3. Save the results
+    write(df_vehicle=df_vehicle, df_op=df_op, df_join=df_join, bucket=bucket, prefix_out=prefix_out)
     return
