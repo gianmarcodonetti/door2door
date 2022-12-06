@@ -20,3 +20,12 @@ We would like to ask you to develop a solution that:
 2. Processes and extracts the main events that occurred during operating periods;
 3. Store the transformed data on a data warehouse. The data warehouse should be SQL-queriable
 (SQL database or using something like AWS Athena).
+
+## Data
+The data for this challenge lives on the S3 bucket s3://de-tech-assessment-2022. Inside you can
+find:
+1. a folder named data that contains all the data;
+2. a file named DE_Tech_Assessment_Metadata.pdf that describes the data.
+
+In case you want to use a different cloud provider or develop a local solution you can download the
+data from here.
