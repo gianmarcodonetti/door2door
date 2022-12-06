@@ -29,7 +29,7 @@ class PySparkKPITest(unittest.TestCase):
      |-- on: string (nullable = true)
      |-- organization_id: string (nullable = true)
     """
-    df_read = spark.read.json('./testdata.json')
+    df_read = spark.read.json('./test/testdata.json')
 
     def test_number_of_lines_processed(self):
         """There should be 2, 1 and 2 lines
