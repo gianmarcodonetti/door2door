@@ -1,6 +1,6 @@
 import unittest
 
-from decc import version
+from door2door import version
 
 
 class KPITest(unittest.TestCase):
