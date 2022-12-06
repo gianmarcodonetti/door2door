@@ -6,9 +6,7 @@ format_to_pkg = {
 }
 
 
-def get_spark_session(driver='/Users/gianmarco.donetti/Downloads/sqljdbc_6.0/enu/jre8/sqljdbc42.jar',
-                      executor_memory='8g',
-                      driver_memory='8g', master='local[*]', app_name='spark-door2door',
+def get_spark_session(executor_memory='8g', driver_memory='8g', master='local[*]', app_name='spark-door2door',
                       shuffle_partitions='40'):
     conf = (SparkConf()
             .set('spark.jars.packages', 'org.apache.hadoop:hadoop-aws:3.2.0')
@@ -16,8 +14,8 @@ def get_spark_session(driver='/Users/gianmarco.donetti/Downloads/sqljdbc_6.0/enu
                  'org.apache.hadoop.fs.s3a.AnonymousAWSCredentialsProvider')
             .set('spark.executor.memory', executor_memory)
             .set('spark.driver.memory', driver_memory)
-            .set('spark.driver.extraClassPath', driver)
-            .set('spark.executor.extraClassPath', driver)
+            # .set('spark.driver.extraClassPath', driver)
+            # .set('spark.executor.extraClassPath', driver)
             .set('spark.sql.shuffle.partitions', shuffle_partitions)
             .setMaster(master)
             .setAppName(app_name)

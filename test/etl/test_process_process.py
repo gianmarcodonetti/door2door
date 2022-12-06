@@ -51,6 +51,10 @@ class PySparkKPITest(unittest.TestCase):
         write_partitioned(self.df_read.select(F.col('at'), F.col('event'), F.col('on')), './test/out/test_data_output2',
                           file_format='json', partition_columns=['on'], compression=None)
 
+    def test_write_avro(self):
+        write_partitioned(self.df_read.select(F.col('at'), F.col('event'), F.col('on')), './test/out/test_data_output3',
+                          file_format='avro')
+
 
 if __name__ == '__main__':
     unittest.main()
