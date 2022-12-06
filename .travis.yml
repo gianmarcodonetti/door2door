@@ -10,8 +10,8 @@ install:
 
 # command to run tests 6ec24819-8058-43b3-8e46-a9eb3f0310e1
 script:
-  - python -m unittest discover
-  - #coverage run --source door2door setup.py test
+  #- python -m unittest discover
+  - coverage run --source door2door setup.py test
 
 after_success:
   - coveralls
