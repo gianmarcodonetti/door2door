@@ -17,9 +17,6 @@ class PySparkKPITest(unittest.TestCase):
     quiet_py4j()
     df_read = spark.read.json('./test/testdata.json')
 
-    def __del__(self):
-        self.spark.stop()
-
     def test_number_of_lines_read(self):
         """There should be 35351 lines
         """
