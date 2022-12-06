@@ -1,10 +1,6 @@
 from pyspark import SparkConf, SparkContext
 from pyspark.sql import SparkSession
 
-format_to_pkg = {
-    'avro': "com.databricks.spark.avro"
-}
-
 
 def get_spark_session(executor_memory='8g', driver_memory='8g', master='local[*]', app_name='spark-door2door',
                       shuffle_partitions='40'):
@@ -44,13 +40,4 @@ def write_partitioned(df_to_write, path_to_write, partition_columns=None, mode='
     if file_format == 'csv':
         kwargs['header'] = 'true'
         kwargs['quote'] = ''
-    try:
-        getattr(df_writer, file_format)(path_to_write, mode=mode, compression=compression, **kwargs)
-    except AttributeError:
-        (df_writer
-         .format(format_to_pkg[file_format])
-         .mode(mode)
-         .option('compression', compression)
-         .options(**kwargs)
-         .save(path_to_write)
-         )
+    getattr(df_writer, file_format)(path_to_write, mode=mode, compression=compression, **kwargs)
