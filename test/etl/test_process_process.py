@@ -74,7 +74,7 @@ class PySparkKPITest(unittest.TestCase):
     )
 
     def test_number_of_lines_processed(self):
-        """There should be 35351 lines
+        """There should be 2, 1 and 2 lines
         """
         df_vehicle, df_op, df_join = process(self.df_read)
         self.assertEqual(df_vehicle.count(), 2)
@@ -82,7 +82,7 @@ class PySparkKPITest(unittest.TestCase):
         self.assertEqual(df_join.count(), 2)
 
     def test_columns(self):
-        """There should be 35351 lines
+        """There should be the following columns
         """
         df_vehicle, df_op, df_join = process(self.df_read)
         self.assertEqual(set(df_vehicle.columns), {'equal', 'event', 'lat', 'lng', 'location_at',
