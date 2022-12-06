@@ -38,10 +38,10 @@ class PySparkKPITest(unittest.TestCase):
         """There should be the following columns
         """
         df_vehicle, df_op, df_join = process(self.df_read)
-        self.assertEqual(set(df_vehicle.columns), {'equal', 'event', 'lat', 'lng', 'location_at',
+        self.assertEqual(set(df_vehicle.columns), {'event', 'lat', 'lng', 'location_at',
                                                    'on', 'organization_id', 'vehicle_at', 'vehicle_id'})
         self.assertEqual(set(df_op.columns), {'at', 'event', 'finish', 'on', 'op_id', 'organization_id', 'start'})
-        self.assertEqual(set(df_join.columns), {'at', 'equal', 'event', 'finish', 'lat', 'lng', 'location_at', 'on',
+        self.assertEqual(set(df_join.columns), {'at', 'event', 'finish', 'lat', 'lng', 'location_at', 'on',
                                                 'op_id', 'organization_id', 'start', 'vehicle_at', 'vehicle_id'})
 
 

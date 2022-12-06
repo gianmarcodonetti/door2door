@@ -1,4 +1,4 @@
-VEHICLE_ID = 'VEHICLE_ID'
+VEHICLE_ID = 'vehicle_id'
 LAT = 'lat'
 LNG = 'lng'
 START = 'start'
