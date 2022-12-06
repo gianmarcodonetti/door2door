@@ -29,49 +29,7 @@ class PySparkKPITest(unittest.TestCase):
      |-- on: string (nullable = true)
      |-- organization_id: string (nullable = true)
     """
-    df_read = spark.createDataFrame(
-        data=[
-            {
-                "event": "update",
-                "on": "vehicle",
-                "at": "2019-06-01T18:17:10.101Z",
-                "data": {
-                    "id": "bac5188f-67c6-4965-81dc-4ef49622e280",
-                    "location": {
-                        "lat": 52.45133,
-                        "lng": 13.46045,
-                        "at": "2019-06-01T18:17:10.101Z"
-                    }
-                },
-                "organization_id": "org-id"
-            },
-            {
-                "event": "update",
-                "on": "vehicle",
-                "at": "2019-06-01T18:17:10.123Z",
-                "data": {
-                    "id": "e6463c23-5ef5-4ec3-94c6-e2ab8580108d",
-                    "location": {
-                        "lat": 52.47383,
-                        "lng": 13.2422,
-                        "at": "2019-06-01T18:17:10.123Z"
-                    }
-                },
-                "organization_id": "org-id"
-            },
-            {
-                "event": "create",
-                "on": "operating_period",
-                "at": "2019-06-01T18:17:04.086Z",
-                "data": {
-                    "id": "op_1",
-                    "start": "2016-12-30T18:17:04.079Z",
-                    "finish": "2016-12-31T18:22:04.079Z"
-                },
-                "organization_id": "org-id"
-            }
-        ]
-    )
+    df_read = spark.read.json('./testdata.json')
 
     def test_number_of_lines_processed(self):
         """There should be 2, 1 and 2 lines
