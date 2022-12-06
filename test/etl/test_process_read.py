@@ -16,6 +16,9 @@ class PySparkKPITest(unittest.TestCase):
     spark = get_spark_session()
     quiet_py4j()
 
+    def __del__(self):
+        self.spark.stop()
+
     def test_number_of_lines_read(self):
         """There should be 35351 lines
         """

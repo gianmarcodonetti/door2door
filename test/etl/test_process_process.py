@@ -14,22 +14,10 @@ def quiet_py4j():
 class PySparkKPITest(unittest.TestCase):
     spark = get_spark_session()
     quiet_py4j()
-    """
-    root
-     |-- at: timestamp (nullable = true)
-     |-- data: struct (nullable = true)
-     |    |-- finish: timestamp (nullable = true)
-     |    |-- id: string (nullable = true)
-     |    |-- location: struct (nullable = true)
-     |    |    |-- at: timestamp (nullable = true)
-     |    |    |-- lat: double (nullable = true)
-     |    |    |-- lng: double (nullable = true)
-     |    |-- start: timestamp (nullable = true)
-     |-- event: string (nullable = true)
-     |-- on: string (nullable = true)
-     |-- organization_id: string (nullable = true)
-    """
     df_read = spark.read.json('./test/testdata.json')
+
+    def __del__(self):
+        self.spark.stop()
 
     def test_number_of_lines_processed(self):
         """There should be 2, 1 and 2 lines
