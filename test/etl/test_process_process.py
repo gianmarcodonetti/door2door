@@ -1,5 +1,6 @@
 import logging
 import unittest
+from datetime import date
 
 from door2door.etl.process import process, read_data
 from door2door.spark import get_spark_session
