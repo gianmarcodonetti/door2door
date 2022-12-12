@@ -33,27 +33,6 @@ DEFAULT_ARGS = {
     'email_on_retry': ["{{ dag_run.conf['email_on_retry'] }}"],
 }
 
-SPARK_STEPS = [
-    {
-        'Name': 'process_door2door_raw_json',
-        'ActionOnFailure': 'CONTINUE',
-        'HadoopJarStep': {
-            'Jar': 'command-runner.jar',
-            'Args': [
-                'spark-submit',
-                '–deploy-mode',
-                'cluster',
-                '–master',
-                'yarn',
-                '–conf',
-                'spark.yarn.submit.waitAppCompletion=true',
-                's3a://{{ var.value.work_bucket }}/bin/etl/process_raw_json.py'
-                # we should upload the pyspark script here
-            ]
-        }
-    }
-]
-
 JOB_FLOW_OVERRIDES = {
     'Name': 'door2door-cluster-airflow',
     'ReleaseLabel': '{{ var.value.release_label }}',
@@ -141,6 +120,28 @@ with DAG(
         task_id='create_job_flow',
         job_flow_overrides=JOB_FLOW_OVERRIDES
     )
+
+    SPARK_STEPS = [
+        {
+            'Name': 'process_door2door_raw_json',
+            'ActionOnFailure': 'CONTINUE',
+            'HadoopJarStep': {
+                'Jar': 'command-runner.jar',
+                'Args': [
+                    'spark-submit',
+                    '–deploy-mode',
+                    'cluster',
+                    '–master',
+                    'yarn',
+                    '–conf',
+                    'spark.yarn.submit.waitAppCompletion=true',
+                    's3a://{{ var.value.work_bucket }}/bin/etl/process_raw_json.py'
+                    # we should upload the pyspark script here
+                    '{{ execution_date }}'
+                ]
+            }
+        }
+    ]
 
     step_adder = EmrAddStepsOperator(
         task_id='add_steps',
