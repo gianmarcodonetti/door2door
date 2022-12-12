@@ -137,7 +137,7 @@ with DAG(
                     'spark.yarn.submit.waitAppCompletion=true',
                     's3a://{{ var.value.work_bucket }}/bin/etl/process_raw_json.py'
                     # we should upload the pyspark script here
-                    '{{ execution_date }}'
+                    '--day {{ execution_date }}'
                 ]
             }
         }
